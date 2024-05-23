@@ -1,0 +1,11 @@
+{
+  "name": "sports-betting-insights",
+  "version": "1.0.0",
+  "description": "An application for sports betting insights",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
