@@ -1,8 +1,8 @@
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
 require('dotenv').config({ path: path.resolve(__dirname, 'credentials/.env') });
 
 const app = express();
@@ -18,16 +18,20 @@ const databaseAndCollection = {
 
 let client;
 
-async function connectToDatabase() {
+async function connectToDatabase() 
+{
     client = new MongoClient(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverApi: ServerApiVersion.v1
     });
-    try {
+    try 
+    {
         await client.connect();
         console.log("Connected to database");
-    } catch (err) {
+    } 
+    catch (err) 
+    {
         console.error("Failed to connect to database", err);
         process.exit(1); // Exit the process if unable to connect to the database
     }
@@ -36,17 +40,53 @@ async function connectToDatabase() {
 connectToDatabase();
 
 // Middleware
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Parse JSON bodies
 
-// Set up views and view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// Serve the scraped predictions data
+app.get('/api/predictions', async (req, res) => {
+    console.log('Request received for /api/predictions');
+    
+    try 
+    {
+        await client.connect();
+        const db = client.db(databaseAndCollection.db);
+        const collection = db.collection(databaseAndCollection.collection);
 
-// Routes
-app.get("/", (req, res) => {
-    res.render("home");
+        // Retrieve predictions from MongoDB
+        const predictions = await collection.find({}).toArray();
+
+        res.json(predictions);
+        client.close();
+    } 
+    catch (err) 
+    {
+        console.error('Error retrieving predictions from MongoDB:', err);
+        res.status(500).send('Internal Server Error');
+    }
+    /*
+    fs.readFile(path.join(__dirname, 'data', 'predictionObjects.json'), 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+          }
+      
+          //console.log('Contents of predictionObjects.json:', data);
+
+          try {
+            const jsonData = JSON.parse(data);
+            //console.log('Read data from predictionObjects.json:', jsonData);
+            //console.log('Response headers:', res.getHeaders());
+            res.json(jsonData);
+            //console.log('Sent response to client:', jsonData);
+          } catch (err) {
+            console.error('Error parsing JSON data:', err);
+            res.status(500).send('Internal Server Error');
+          }
+    });
+    */
 });
 
 // Serve React frontend
@@ -62,6 +102,7 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/`);
+    require('../scripts/scheduler');
 });
 
 // Close MongoDB connection when the Express server shuts down
