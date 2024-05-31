@@ -1,80 +1,80 @@
 [
   {
     "game": "Mavericks vs. Timberwolves",
+    "prediction": "Mike Conley Over 20.5 Pts + Reb + Ast",
+    "odds": "-115",
+    "gameId": 20952,
+    "status": "Upcoming",
+    "author": "ANNIE NADER"
+  },
+  {
+    "game": "Mavericks vs. Timberwolves",
+    "prediction": "Derrick Jones Jr. Under 8.5 Points",
+    "odds": "-111",
+    "gameId": 20952,
+    "status": "Upcoming",
+    "author": "ANNIE NADER"
+  },
+  {
+    "game": "Mavericks vs. Timberwolves",
+    "prediction": "Anthony Edwards Over 2.5 Made Threes",
+    "odds": "-113",
+    "gameId": 20952,
+    "status": "Upcoming",
+    "author": "ANNIE NADER"
+  },
+  {
+    "game": "Mavericks vs. Timberwolves",
+    "prediction": "Timberwolves -4.5",
+    "odds": "-110",
+    "gameId": 20952,
+    "status": "Upcoming",
+    "author": "RILEY THOMAS"
+  },
+  {
+    "game": "Mavericks vs. Timberwolves",
     "prediction": "Kyrie Irving Under 24.5 Points",
     "odds": "-125",
+    "gameId": 20952,
+    "status": "Upcoming",
     "author": "ANNIE NADER"
   },
   {
     "game": "Mavericks vs. Timberwolves",
     "prediction": "Karl-Anthony Towns Over 28.5 Pts + Reb",
     "odds": "-111",
+    "gameId": 20952,
+    "status": "Upcoming",
     "author": "ANNIE NADER"
   },
   {
     "game": "Mavericks vs. Timberwolves",
     "prediction": "Anthony Edwards To Record 2+ Steals",
     "odds": "+105",
+    "gameId": 20952,
+    "status": "Upcoming",
     "author": "ANNIE NADER"
   },
   {
     "game": "Mavericks vs. Timberwolves",
     "prediction": "Mavericks Team Total Over 106.5",
     "odds": "-104",
+    "gameId": 20952,
+    "status": "Upcoming",
     "author": "RILEY THOMAS"
   },
   {
     "game": "Celtics vs. Pacers",
     "prediction": "Pacers +8",
     "odds": "-112",
+    "status": "Upcoming",
     "author": "AUSTIN SWAIM"
   },
   {
     "game": "Celtics vs. Pacers",
     "prediction": "Aaron Nesmith Over 16.5 Points and Rebounds",
     "odds": "+100",
+    "status": "Upcoming",
     "author": "AUSTIN SWAIM"
-  },
-  {
-    "game": "Mavericks vs. Timberwolves",
-    "prediction": "Timberwolves Halftime ML",
-    "odds": "+114",
-    "author": "AUSTIN SWAIM"
-  },
-  {
-    "game": "Mavericks vs. Timberwolves",
-    "prediction": "Karl-Anthony Towns Over 27.5 Points and Rebounds",
-    "odds": "-122",
-    "author": "AUSTIN SWAIM"
-  },
-  {
-    "game": "Celtics vs. Pacers",
-    "prediction": "Celtics Team Total Over 114.5",
-    "odds": "-115",
-    "author": "RILEY THOMAS"
-  },
-  {
-    "game": "Celtics vs. Pacers",
-    "prediction": "Jayson Tatum Under 2.5 Made Threes",
-    "odds": "-104",
-    "author": "RILEY THOMAS"
-  },
-  {
-    "game": "Mavericks vs. Timberwolves",
-    "prediction": "Rudy Gobert Over 12.5 Rebounds",
-    "odds": "+106",
-    "author": "ANNIE NADER"
-  },
-  {
-    "game": "Mavericks vs. Timberwolves",
-    "prediction": "Jaden McDaniels Under 1.5 Made Threes",
-    "odds": "+112",
-    "author": "ANNIE NADER"
-  },
-  {
-    "game": "Mavericks vs. Timberwolves",
-    "prediction": "P.J. Washington Over 18.5 Pts + Reb",
-    "odds": "-104",
-    "author": "ANNIE NADER"
   }
 ]

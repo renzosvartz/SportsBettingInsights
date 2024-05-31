@@ -1,5 +1,8 @@
 // scripts/scrapePredictions.js
-
+const axios = require('axios');
+const API_KEY = 'a9900799a28840df8115cc513eeef60c'; // Replace with your API key
+const BASE_URL = 'https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/'; // Example endpoint
+const cron = require('node-cron');
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const fs = require('fs');
@@ -15,6 +18,40 @@ const databaseAndCollection = {
     collection: process.env.MONGO_COLLECTION
 };
 
+const teamAbbreviations = 
+{
+    "Hawks": "ATL",
+    "Celtics": "BOS",
+    "Nets": "BKN",
+    "Hornets": "CHA",
+    "Bulls": "CHI",
+    "Cavaliers": "CLE",
+    "Mavericks": "DAL",
+    "Nuggets": "DEN",
+    "Pistons": "DET",
+    "Warriors": "GSW",
+    "Rockets": "HOU",
+    "Pacers": "IND",
+    "Clippers": "LAC",
+    "Lakers": "LAL",
+    "Grizzlies": "MEM",
+    "Heat": "MIA",
+    "Bucks": "MIL",
+    "Timberwolves": "MIN",
+    "Pelicans": "NOP",
+    "Knicks": "NY",
+    "Thunder": "OKC",
+    "Magic": "ORL",
+    "76ers": "PHI",
+    "Suns": "PHX",
+    "Blazers": "POR",
+    "Kings": "SAC",
+    "Spurs": "SAS",
+    "Raptors": "TOR",
+    "Jazz": "UTA",
+    "Wizards": "WAS"
+};
+
 async function scrapeFanDuelPredictions() 
 {
     const browser = await puppeteer.launch();
@@ -28,6 +65,10 @@ async function scrapeFanDuelPredictions()
     
     let allPredictionObjects = [];
 
+    let gameDate = "2024-MAY-30";
+    const {gameData, gameIds} = await fetchGameStatus(gameDate);
+    console.log(gameData);
+
     for (const url of uniqueURLs) 
     {
         // Navigate to the URL where the bet information is available
@@ -39,7 +80,7 @@ async function scrapeFanDuelPredictions()
 
         // Waits for the page to load then calls functions within the context of the page
         // Extract the name of the game
-        const game = await page.evaluate(() => {
+        const {teamA, teamB} = await page.evaluate(() => {
             const titleText = document.querySelector('h1').innerText;
         
             // Regex pattern for "Team1 vs. Team2" format
@@ -71,9 +112,21 @@ async function scrapeFanDuelPredictions()
         
             const sortedTeams = [team1, team2].sort();
 
-            return sortedTeams[0] + ' vs. ' + sortedTeams[1];
+            return {teamA: sortedTeams[0], teamB: sortedTeams[1]};
         });
         
+        let game = teamA + ' vs. ' + teamB;
+
+        // Extract Game
+
+        //Extract gameId
+        const gameIndex = gameData.findIndex(g => (g.AwayTeam === teamAbbreviations[teamA] && g.HomeTeam === teamAbbreviations[teamB]) || (g.AwayTeam === teamAbbreviations[teamB] && g.HomeTeam === teamAbbreviations[teamA]))
+        let gameId;
+        if (gameIndex !== -1) 
+        {
+            gameId = gameIds[gameIndex];
+        }
+
         // Extract the prediction
         const allPredictions = await page.evaluate(() => {
 
@@ -103,6 +156,8 @@ async function scrapeFanDuelPredictions()
                 game: game,
                 prediction: pred,
                 odds: odds,
+                gameId: gameId,
+                status: 'Upcoming',
                 author: backer
             };
         });
@@ -126,7 +181,28 @@ async function scrapeFanDuelPredictions()
     return allPredictionObjects;
 }
 
-function parsePrediction(prediction) {
+async function fetchGameStatus(gameDate) 
+{
+    try 
+    {
+        const response = await axios.get(`${BASE_URL}${gameDate}`, {
+            headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY,
+            },
+        });
+        const gameData = response.data;
+        const gameIds = gameData.map(game => game.GameID);
+        return { gameData, gameIds };
+    } 
+    catch (error) 
+    {
+        console.error('Error fetching game status:', error);
+        return null;
+    }
+}
+
+function parsePrediction(prediction) 
+{
     // Define a regex pattern to match the odds
     const oddsPattern = /(\([-+]?\d+\))/;
 
