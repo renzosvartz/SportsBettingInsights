@@ -8,7 +8,7 @@ const ExpertPicks = ({ predictionObjects }) => {
                     <div className="bet-info">
                         <div className="prediction-text">{predictionObject.prediction}</div>
                         <p>Game: {predictionObject.game}</p>
-                        <p>Bet Type: N/A</p>
+                        <p>Bet Type: {predictionObject.betType}</p>
                         <p>Betting Odds: {predictionObject.odds}</p>
                     </div>
                     <div className="related-data">
@@ -16,7 +16,7 @@ const ExpertPicks = ({ predictionObjects }) => {
                         <p>Success History: N/A</p>
                         <p>Progress: {predictionObject.status}</p>
                         <div className="progress-bar">
-                            <div className="progress" style={{ width: "50%" }}></div>
+                            <div className="progress" style={{ width: getRandomPercentage() }}></div>
                         </div>
                     </div>
                     <div className="actions">
@@ -29,5 +29,11 @@ const ExpertPicks = ({ predictionObjects }) => {
         </div>
     );
 };
+
+function getRandomPercentage() 
+{
+    // Generate a random number between 0 and 100 for the percentage
+    return Math.floor(Math.random() * 101) + "%";
+}
 
 export default ExpertPicks;

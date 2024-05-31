@@ -12,8 +12,13 @@ const TopBettors = () => {
           </div>
           <div className="bettor">
             <span className="bettor-rank">#2</span>
-            <span className="bettor-name">John Doe</span>
+            <span className="bettor-name">John</span>
             <span className="bettor-points">500 points</span>
+          </div>
+          <div className="bettor">
+            <span className="bettor-rank">#3</span>
+            <span className="bettor-name">Jane</span>
+            <span className="bettor-points">100 points</span>
           </div>
           {/* Repeat the bettor structure for each top bettor */}
         </div>

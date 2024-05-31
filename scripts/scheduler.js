@@ -68,14 +68,14 @@ cron.schedule('0 0 * * *', () => {
 async function runUpdates()
 {
     console.log("Updating games");
-    const gameDate = "2024-MAY-30"; // Example date, format as needed
-    const { gameData } = await fetchGameStatus(gameDate);
+    let gameDates = ["2024-MAY-25", "2024-MAY-26", "2024-MAY-27","2024-MAY-28","2024-MAY-29", "2024-MAY-30"];;
+    const {allGameData, allGameIds} = await fetchGameStatus(gameDates);
     //console.log(gameData);
     
-    if (gameData) 
+    if (allGameData) 
     {
         predictions = predictions.map(prediction => {
-            const game = gameData.find(g => g.GameID === prediction.gameId);
+            const game = allGameData.find(g => g.GameID === prediction.gameId);
             if (game) 
             {
                 updatePredictionState(prediction, game);
@@ -138,18 +138,27 @@ async function storeUpdatedPredictions()
       }
 }
 
-async function fetchGameStatus(gameDate) 
+async function fetchGameStatus(gameDates) 
 {
     try 
     {
-        const response = await axios.get(`${BASE_URL}${gameDate}`, {
-            headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY,
-            },
-        });
-        const gameData = response.data;
-        const gameIds = gameData.map(game => game.GameID);
-        return { gameData, gameIds };
+        let allGameData = [];
+        let allGameIds = [];
+
+        for (let gameDate of gameDates)
+        {
+            const response = await axios.get(`${BASE_URL}${gameDate}`, {
+                headers: {
+                    'Ocp-Apim-Subscription-Key': API_KEY,
+                },
+            });
+            const gameData = response.data;
+            const gameIds = gameData.map(game => game.GameID);    
+            allGameData = allGameData.concat(gameData);
+            allGameIds = allGameIds.concat(gameIds);
+        }
+        
+        return { allGameData, allGameIds };
     } 
     catch (error) 
     {
@@ -157,3 +166,5 @@ async function fetchGameStatus(gameDate)
         return null;
     }
 }
+
+module.exports = { runUpdates };

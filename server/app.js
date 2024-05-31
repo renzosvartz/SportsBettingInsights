@@ -44,6 +44,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Parse JSON bodies
 
+const { runUpdates } = require('../scripts/scheduler');
+
 // Serve the scraped predictions data
 app.get('/api/predictions', async (req, res) => {
     console.log('Request received for /api/predictions');
@@ -53,6 +55,9 @@ app.get('/api/predictions', async (req, res) => {
         await client.connect();
         const db = client.db(databaseAndCollection.db);
         const collection = db.collection(databaseAndCollection.collection);
+
+        // Run updates before sending the predictions
+        await runUpdates();
 
         // Retrieve predictions from MongoDB
         const predictions = await collection.find({}).toArray();

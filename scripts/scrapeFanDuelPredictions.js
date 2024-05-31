@@ -65,15 +65,18 @@ async function scrapeFanDuelPredictions()
     
     let allPredictionObjects = [];
 
-    let gameDate = "2024-MAY-30";
-    const {gameData, gameIds} = await fetchGameStatus(gameDate);
-    console.log(gameData);
+    let gameDates = ["2024-MAY-25", "2024-MAY-26", "2024-MAY-27","2024-MAY-28","2024-MAY-29", "2024-MAY-30"];;
+    const {allGameData, allGameIds} = await fetchGameStatus(gameDates);
+    //console.log(allGameData);
 
     for (const url of uniqueURLs) 
     {
         // Navigate to the URL where the bet information is available
         console.log('Visiting ' + url);
         await page.goto(url);
+
+        // Extract Playoff GameNumber
+        let gameNumber = Number(url.charAt(url.length - 1));
 
         // Extract HTML for processing
         const html = await page.content();
@@ -120,11 +123,11 @@ async function scrapeFanDuelPredictions()
         // Extract Game
 
         //Extract gameId
-        const gameIndex = gameData.findIndex(g => (g.AwayTeam === teamAbbreviations[teamA] && g.HomeTeam === teamAbbreviations[teamB]) || (g.AwayTeam === teamAbbreviations[teamB] && g.HomeTeam === teamAbbreviations[teamA]))
+        const gameIndex = allGameData.findIndex(g => (g.AwayTeam === teamAbbreviations[teamA] && g.HomeTeam === teamAbbreviations[teamB] && g.SeriesInfo.GameNumber === gameNumber) || (g.AwayTeam === teamAbbreviations[teamB] && g.HomeTeam === teamAbbreviations[teamA] && g.SeriesInfo.GameNumber == gameNumber))
         let gameId;
         if (gameIndex !== -1) 
         {
-            gameId = gameIds[gameIndex];
+            gameId = allGameIds[gameIndex];
         }
 
         // Extract the prediction
@@ -150,10 +153,12 @@ async function scrapeFanDuelPredictions()
 
         // Prepare the predictions data
         const predictionObjects = allPredictions.map((prediction) => {
-            let {prediction: pred, odds} = parsePrediction(prediction);
+            let {prediction: pred, betType, odds} = parsePrediction(prediction, teamA, teamB);
 
             return {
                 game: game,
+                gameNumber: gameNumber,
+                betType: betType,
                 prediction: pred,
                 odds: odds,
                 gameId: gameId,
@@ -181,18 +186,27 @@ async function scrapeFanDuelPredictions()
     return allPredictionObjects;
 }
 
-async function fetchGameStatus(gameDate) 
+async function fetchGameStatus(gameDates) 
 {
     try 
     {
-        const response = await axios.get(`${BASE_URL}${gameDate}`, {
-            headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY,
-            },
-        });
-        const gameData = response.data;
-        const gameIds = gameData.map(game => game.GameID);
-        return { gameData, gameIds };
+        let allGameData = [];
+        let allGameIds = [];
+
+        for (let gameDate of gameDates)
+        {
+            const response = await axios.get(`${BASE_URL}${gameDate}`, {
+                headers: {
+                    'Ocp-Apim-Subscription-Key': API_KEY,
+                },
+            });
+            const gameData = response.data;
+            const gameIds = gameData.map(game => game.GameID);    
+            allGameData = allGameData.concat(gameData);
+            allGameIds = allGameIds.concat(gameIds);
+        }
+        
+        return { allGameData, allGameIds };
     } 
     catch (error) 
     {
@@ -201,7 +215,7 @@ async function fetchGameStatus(gameDate)
     }
 }
 
-function parsePrediction(prediction) 
+function parsePrediction(prediction, teamA, teamB) 
 {
     // Define a regex pattern to match the odds
     const oddsPattern = /(\([-+]?\d+\))/;
@@ -211,7 +225,24 @@ function parsePrediction(prediction)
 
     prediction = prediction.replace(oddsPattern, '').trim();
     const odds = parseOdds(oddsMatch[0]);
-    return { prediction, odds };
+
+    let betType;
+    if (!prediction.includes(teamA) && !prediction.includes(teamB))
+    {
+        betType = "Player Prop, Over/Under";
+    }
+    else if (prediction.includes("Over") || prediction.includes("Under"))
+    {
+        betType = "Over/Under";
+    }
+    else
+    {
+        
+        betType = "Spread";
+        
+    }
+
+    return { prediction, betType, odds };
 }
 
 const parseOdds = (oddsString) => {
@@ -283,7 +314,7 @@ async function createUniqueIndex(collection)
 {
     try 
     {
-      await collection.createIndex({ prediction: 1, author: 1 }, { unique: true });
+      await collection.createIndex({ prediction: 1, gameId: 1, author: 1 }, { unique: true });
       console.log("Unique index created successfully");
     } 
     catch (err) 

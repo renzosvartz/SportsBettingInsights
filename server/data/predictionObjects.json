@@ -1,6 +1,8 @@
 [
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 5,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Mike Conley Over 20.5 Pts + Reb + Ast",
     "odds": "-115",
     "gameId": 20952,
@@ -9,6 +11,8 @@
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 5,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Derrick Jones Jr. Under 8.5 Points",
     "odds": "-111",
     "gameId": 20952,
@@ -17,6 +21,8 @@
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 5,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Anthony Edwards Over 2.5 Made Threes",
     "odds": "-113",
     "gameId": 20952,
@@ -25,6 +31,8 @@
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 5,
+    "betType": "Spread",
     "prediction": "Timberwolves -4.5",
     "odds": "-110",
     "gameId": 20952,
@@ -33,47 +41,61 @@
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 4,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Kyrie Irving Under 24.5 Points",
     "odds": "-125",
-    "gameId": 20952,
+    "gameId": 20951,
     "status": "Upcoming",
     "author": "ANNIE NADER"
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 4,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Karl-Anthony Towns Over 28.5 Pts + Reb",
     "odds": "-111",
-    "gameId": 20952,
+    "gameId": 20951,
     "status": "Upcoming",
     "author": "ANNIE NADER"
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 4,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Anthony Edwards To Record 2+ Steals",
     "odds": "+105",
-    "gameId": 20952,
+    "gameId": 20951,
     "status": "Upcoming",
     "author": "ANNIE NADER"
   },
   {
     "game": "Mavericks vs. Timberwolves",
+    "gameNumber": 4,
+    "betType": "Over/Under",
     "prediction": "Mavericks Team Total Over 106.5",
     "odds": "-104",
-    "gameId": 20952,
+    "gameId": 20951,
     "status": "Upcoming",
     "author": "RILEY THOMAS"
   },
   {
     "game": "Celtics vs. Pacers",
+    "gameNumber": 4,
+    "betType": "Spread",
     "prediction": "Pacers +8",
     "odds": "-112",
+    "gameId": 20944,
     "status": "Upcoming",
     "author": "AUSTIN SWAIM"
   },
   {
     "game": "Celtics vs. Pacers",
+    "gameNumber": 4,
+    "betType": "Player Prop, Over/Under",
     "prediction": "Aaron Nesmith Over 16.5 Points and Rebounds",
     "odds": "+100",
+    "gameId": 20944,
     "status": "Upcoming",
     "author": "AUSTIN SWAIM"
   }
