@@ -1,0 +1,262 @@
+body 
+{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+a:visited
+{
+    color: white
+}
+
+.banner 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 3.5rem; /* Adjust height as needed */
+    width: 100%; /* Adjust width as needed */
+
+    background: linear-gradient(to bottom, rgb(0, 128, 0), rgb(0, 64, 0)); /* Optional: gradient for glossy effect */
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+
+    text-shadow: 
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -5px 5px 0px rgba(0, 0, 0, 0.5); /* Text shadow for 3D effect */
+}
+
+h1
+{
+    padding-left: 40px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: black;
+}
+
+.banner a 
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar 
+{
+    background: linear-gradient(to bottom, rgb(0, 64, 0), rgb(0, 0, 0)); /* Optional: gradient for glossy effect */
+    padding: 15px 0; /* Padding for vertical spacing */
+}
+
+.navbar ul 
+{
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for the navbar */
+    justify-content: center; /* Center the items horizontally */
+}
+
+.navbar li 
+{
+    margin: 0 20px; /* Horizontal spacing between items */
+}
+
+.navbar a 
+{
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: 
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -5px 5px 0px rgba(0, 0, 0, 0.5); /* Text shadow for 3D effect */
+}
+
+.navbar a:hover 
+{
+    color: #ddd; /* Hover color */
+}
+
+.navbar .nav-item 
+{
+    text-align: center;
+}
+
+.top-bettors-container 
+{
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 20px;
+    padding: 20px;
+    margin-left: 20px;
+    width: 95%; /* Ensure full width */
+    white-space: nowrap; /* Prevent wrapping */
+    border-radius: 5px;
+}
+
+/* Bettors List Styles */
+.bettors-list 
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Bettor Styles */
+.bettor 
+{
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 245px;
+    display: flex;
+    align-items: center;
+
+    font-size: 1.2rem;
+}
+
+.bettor-rank 
+{
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.bettor-name 
+{
+    flex: 1;
+}
+
+.bettor-points 
+{
+    color: #007bff;
+}
+
+/* Container Styles */
+.expert-picks-container 
+{
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 20px;
+    padding: 20px;
+    margin-left: 20px;
+    width: 95%; /* Ensure full width */
+    border-radius: 50px;
+}
+
+/* Container Styles */
+.trending-bets-container 
+{
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 20px;
+    padding: 20px;
+    margin-left: 20px;
+    width: 95%; /* Ensure full width */
+    white-space: nowrap; /* Prevent wrapping */
+    border-radius: 50px;
+}
+
+/* Bet Card Styles */
+.bet-card {
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* Fixed width for the bet card */
+    height: auto; /* Allow the height to adjust based on content */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.bet-info {
+    flex-grow: 1; /* Allow bet info section to grow */
+}
+
+.bet-info h3 {
+    margin: 0; /* Remove default margin */
+    word-wrap: break-word; /* Allow long words to wrap */
+    overflow: visible; /* Allow overflow */
+    max-height: unset; /* Remove max height */
+    line-height: 1.2; /* Adjust line height for multiple rows */
+}
+
+.prediction-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    height: 42px;
+    max-width: 100%; /* Limit the width of the text to the width of its container */
+}
+
+/* Related Data Styles */
+.related-data p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.progress-bar {
+    background-color: #ddd;
+    border-radius: 5px;
+    height: 10px;
+    margin: 5px 0;
+    overflow: hidden;
+}
+
+.progress {
+    background-color: green;
+    height: 100%;
+    width: 70%; /* Adjust width based on actual progress */
+}
+
+/* Actions Styles */
+.actions {
+    display: flex;
+    justify-content: space-between; /* Spread buttons evenly */
+    gap: 10px;
+}
+
+.actions button {
+    width: 90px; /* Fixed width for buttons */
+    padding: 8px 0; /* Adjust vertical padding */
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent button text from wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show ellipsis for overflow */
+    text-align: center; /* Center align text */
+}
+
+.actions button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) 
+{
+    .navbar 
+    {
+        flex-direction: column;
+    }
+    .navbar-nav 
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nav-item 
+    {
+        margin: 10px 0;
+    }
+}
